@@ -1,20 +1,12 @@
 package info.seleniumcucumber.stepdefinitions;
 
-import java.io.File;
-import java.io.IOException;
-
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-
-import cucumber.api.Scenario;
-import cucumber.api.java.After;
 import cucumber.api.java.en.Then;
-import cucumber.runtime.ScenarioImpl;
 import env.DriverUtil;
 import info.seleniumcucumber.methods.BaseTest;
 import info.seleniumcucumber.methods.TestCaseFailed;
+import org.openqa.selenium.WebDriver;
+
+import java.io.IOException;
 
 public class PredefinedStepDefinitions implements BaseTest {
 	protected WebDriver driver = DriverUtil.getDefaultDriver();
