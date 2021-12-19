@@ -1,0 +1,245 @@
+{
+	"info": {
+		"_postman_id": "bdc0c4da-4b02-4e20-8ccb-e41f1347122a",
+		"name": "Task",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Book",
+			"item": [
+				{
+					"name": "getAllBook",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check response status",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"//Check header content",
+									"pm.test(\"Content-Type header is application/json\", () => {",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');",
+									"});",
+									"",
+									"",
+									"",
+									"pm.test(\"Check response values\", function () {",
+									"    // Todo: Seperate each assertion or include \"assertAll\" function",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.docs).to.be.an(\"array\");",
+									"    pm.expect(jsonData.total).to.eql(3);",
+									"    pm.expect(jsonData.limit).to.eql(1000);",
+									"    pm.expect(jsonData.page).to.eql(1);",
+									"    pm.expect(jsonData.pages).to.eql(1);",
+									"    //console.log(jsonData.docs[0].name);",
+									"});",
+									"",
+									"//Check the last book name",
+									"//Todo: iterate through each book by name",
+									"pm.test(\"Verify the last book name\", () => {",
+									"    var ExpectedBookName = \"The Return Of The King\";",
+									"    var ActualBookName = pm.response.json().docs[2].name;",
+									"",
+									"    pm.expect(ExpectedBookName).to.eql(ActualBookName);",
+									"",
+									"});",
+									"",
+									"",
+									"",
+									"",
+									"pm.test('Check the length of array', function () {",
+									"    var ExpectedLength = 3;",
+									"    var ActualLength = pm.response.json().docs.length;",
+									"    pm.expect(ExpectedLength).to.equal(ActualLength);",
+									"});",
+									"",
+									"",
+									"//Set BookID variable for the following requests.",
+									"//Todo: Check if the attribute exist or not in the first place!    ",
+									"pm.environment.set(\"bookID\", pm.response.json().docs[0]._id);",
+									"//console.log(postman.getEnvironmentVariable(\"bookID\"));",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/book",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"book"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getBookByID",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.test('bookID should exist', function () {",
+									"    pm.expect(pm.environment.has('bookID')).to.equal(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"//Check header",
+									"pm.test(\"Content-Type header is application/json\", () => {",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Check response values\", function () {",
+									"    // Todo: Seperate each assertion or include \"assertAll\" function",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.docs).to.be.an(\"array\");",
+									"    pm.expect(jsonData.docs[0].name).to.eql(\"The Fellowship Of The Ring\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify the choosen book name\", () => {",
+									"    var ExpectedBookName = \"The Fellowship Of The Ring\";",
+									"    var ActualBookName = pm.response.json().docs[0].name;",
+									"    pm.expect(ExpectedBookName).to.eql(ActualBookName);",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/book/{{bookID}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"book",
+								"{{bookID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getBookChapterByID",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.test('bookID should exist', function () {",
+									"    pm.expect(pm.environment.has('bookID')).to.equal(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Set chapterID variable for the following requests.",
+									"//Todo: Check if the attribute exist or not in the first place!    ",
+									"pm.environment.set(\"chapterID\", pm.response.json().docs[0]._id);",
+									"//console.log(postman.getEnvironmentVariable(\"quoteID\"));",
+									"",
+									"pm.test('Check the length of array', function () {",
+									"    var ExpectedLength = 22;",
+									"    var ActualLength = pm.response.json().docs.length;",
+									"    pm.expect(ExpectedLength).to.equal(ActualLength);",
+									"});",
+									"",
+									"",
+									"//Check the last chapter name",
+									"//Todo: iterate through each book by name",
+									"//Todo2: get the last index dinamically, rather then staticly",
+									"pm.test(\"Verify the last book name\", () => {",
+									"    var ExpectedChapterName = \"The Breaking of the Fellowship\";",
+									"    var ActualChapterName = pm.response.json().docs[21].chapterName;",
+									"",
+									"    pm.expect(ExpectedChapterName).to.eql(ActualChapterName);",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accesToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/book/{{bookID}}/chapter",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"book",
+								"{{bookID}}",
+								"chapter"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
