@@ -1,23 +1,21 @@
-package stepDefintions;
+package info.seleniumcucumber.stepdefinitions;
 
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import env.DriverUtil;
 import info.seleniumcucumber.methods.BaseTest;
-import info.seleniumcucumber.methods.SelectElementByType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import java.util.List;
 
-import static org.junit.Assert.fail;
+import java.util.List;
 
 public class UserStepDefinitions implements BaseTest {
     protected WebDriver driver = DriverUtil.getDefaultDriver();
     protected static String firstCelebBornedToday;
 
     /***
-     *
+     * Todo:
      * @param arg1
      */
     @When("I search \"([^\"]*)\" ")
@@ -29,7 +27,7 @@ public class UserStepDefinitions implements BaseTest {
         And I wait for 5 sec*/
     }
     /***
-     *
+     * Todo:
      */
     @Then("^I save people names who born today$")
     public void iSavePeopleNamesWhoBornToday() {
