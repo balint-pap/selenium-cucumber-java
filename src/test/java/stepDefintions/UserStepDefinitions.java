@@ -4,13 +4,17 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import env.DriverUtil;
 import info.seleniumcucumber.methods.BaseTest;
+import info.seleniumcucumber.methods.SelectElementByType;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import java.util.List;
 
 import static org.junit.Assert.fail;
 
 public class UserStepDefinitions implements BaseTest {
     protected WebDriver driver = DriverUtil.getDefaultDriver();
-
+    protected static String firstCelebBornedToday;
 
     /***
      *
@@ -29,6 +33,20 @@ public class UserStepDefinitions implements BaseTest {
      */
     @Then("^I save people names who born today$")
     public void iSavePeopleNamesWhoBornToday() {
-        fail("not implemented yet");
+        List<WebElement> bornToday = driver.findElements((By.cssSelector("div.born-today-name")));
+        //for each every single node, and getText if needed.
+
+        //Search for the *first* “Born Today” celebs.
+        firstCelebBornedToday = bornToday.get(0).getText();
+        //System.out.println(firstCelebBornedToday);
     }
+
+    // enter text into input field steps
+    @Then("^I enter saved text into input field having (.+) \"([^\"]*)\"$")
+    public void enter_text( String type,String accessName) throws Exception
+    {
+        miscmethodObj.validateLocator(type);
+        inputObj.enterText(type, firstCelebBornedToday, accessName);
+    }
+
 }
