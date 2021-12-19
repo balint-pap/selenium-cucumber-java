@@ -1,4 +1,4 @@
-version: "2"
+version: "3"
 services:
   postman_checks:
     container_name: check_task2
