@@ -12,8 +12,13 @@ public class UserStepDefinitions implements BaseTest {
     protected WebDriver driver = DriverUtil.getDefaultDriver();
 
 
+    /***
+     *
+     * @param arg1
+     */
     @When("I search \"([^\"]*)\" ")
     public void searchandGet(String arg1){
+        //Todo: Abstract these above lines into one method
         //PredefinedStepDefinitions.enter_text();
         /*Then I enter "Spiderman Homecoming" into input field having class "imdb-header-search__input"
         And I click on element having css ".react-autosuggest__suggestion--first > a:nth-child(1)"

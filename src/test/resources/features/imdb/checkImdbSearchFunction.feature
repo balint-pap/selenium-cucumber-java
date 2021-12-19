@@ -1,3 +1,4 @@
+@imDB
 Feature: Imdb search assertions
   As a non logged in user I should be able to do search on Imdb.
 
