@@ -1,0 +1,11 @@
+version: "2"
+services:
+  postman_checks:
+    container_name: check_task2
+    build: .
+    image: postman_checks
+    command:
+      run Task.postman_collection.json
+      -e Task.postman_environment.json
+    volumes:
+      - ./postmanExport:/etc/newman
