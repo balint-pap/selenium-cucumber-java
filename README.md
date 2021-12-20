@@ -25,7 +25,7 @@ docker-compose up
 ```
 2B.) For running the E2E test, inside the root folder type:
 ```
-python start-e2e-test.py 
+ ./startDriver.sh
 ```
 
 2B.) Preconditions:
